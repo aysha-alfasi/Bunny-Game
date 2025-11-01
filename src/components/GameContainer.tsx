@@ -3,6 +3,7 @@ import Bunny from "./Bunny";
 import Carrot from "./Carrot";
 import Overlay from "./Overlay";
 import bgMusic from "../assets/sounds/bgMusic.mp3";
+import collectSound from "../assets/sounds/collect.mp3";
 import endGame from "../assets/sounds/endGame.mp3";
 
 interface Position {
@@ -16,7 +17,6 @@ const GameContainer: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const bunnyRef = useRef<HTMLDivElement>(null);
   const carrotRef = useRef<HTMLDivElement>(null);
-  const soundRef = useRef<HTMLAudioElement>(null);
 
   const [bunnyPos, setBunnyPos] = useState<Position>({ x: 0, y: 0 });
   const [score, setScore] = useState<number>(0);
@@ -152,7 +152,6 @@ const GameContainer: React.FC = () => {
 
     const bunnyEl = bunnyRef.current;
     const carrotEl = carrotRef.current;
-    const sound = soundRef.current;
     const container = containerRef.current;
 
     if (!bunnyEl || !carrotEl || !container) return;
@@ -168,7 +167,9 @@ const GameContainer: React.FC = () => {
 
     if (collided) {
       setScore((s) => s + 1);
-      sound?.play();
+      const audio = new Audio(collectSound);
+      audio.play();
+
       setCarrotTarget({ x: bunnyPos.x, y: bunnyPos.y });
       setCarrotEaten(true);
       setIsEating(true);
@@ -191,7 +192,6 @@ const GameContainer: React.FC = () => {
         <h1 className="text-3xl md:text-4xl font-bold text-pink-500 mb-6 animate-bounce">
           Kaawaai Bunny Game 🐰
         </h1>
-
       </div>
 
       <div className="flex justify-between w-[400px] mb-4">
