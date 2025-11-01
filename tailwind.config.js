@@ -5,7 +5,17 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      animation: {
+        'scale-bounce': 'scaleBounce 1.5s infinite',
+      },
+       keyframes: {
+        scaleBounce: {
+          '0%, 100%': { transform: 'scale(1)' },
+          '50%': { transform: 'scale(1.4)' },
+        }
+      },  
+    },
   },
   plugins: [],
 }
